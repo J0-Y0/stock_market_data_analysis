@@ -3,3 +3,4 @@ datasets/
 .venv
 .venv_p10
 .venv_p10/
+__pycache__/
