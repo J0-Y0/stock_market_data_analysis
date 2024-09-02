@@ -34,7 +34,6 @@ pywin32==306
 pyzmq==26.2.0
 six==1.16.0
 stack-data==0.6.3
-TA-Lib @ file:///C:/Users/hp/Desktop/10x/stock_market_data_analysis/datasets/TA_Lib-0.4.32-cp310-cp310-win_amd64.whl
 tornado==6.4.1
 traitlets==5.14.3
 typing_extensions==4.12.2
