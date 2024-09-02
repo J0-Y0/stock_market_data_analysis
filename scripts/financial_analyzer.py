@@ -4,23 +4,16 @@ import matplotlib.pyplot as plt
 
 
 class FinancialAnalyzer:
+
     def load_data(self, ticker, isPath=False):
 
         df = []
         if isPath:
             df = pd.read_csv(ticker)
             df.rename(columns={"date": "Date", "stock": "Stock"}, inplace=True)
-            # Apply the function to the 'Date' column
-            df["Date"] = df["Date"].apply(self.parse_and_normalize_date)
 
-            # Handle cases where date parsing failed
-            if df["Date"].isna().all():
-                raise ValueError(
-                    "All date parsing failed. Please check the date formats."
-                )
-
-            # Normalize to remove the time component
-            df["Date"] = df["Date"].dt.normalize()
+            df["Date"] = pd.to_datetime(df["Date"], format="ISO8601").dt.normalize()
+            df["Date"] = df["Date"].dt.date
 
         else:
             df = pd.read_csv(f"datasets\yfinance_data\{ticker}_historical_data.csv")
@@ -40,20 +33,6 @@ class FinancialAnalyzer:
         # Concatenate all the DataFrames in the list
         combined_data = pd.concat(all_data)
         return combined_data
-
-    def parse_and_normalize_date(self, date_str):
-        # Try different formats
-        for fmt in (
-            "%Y-%m-%d %H:%M:%S%z",
-            "%m/%d/%Y %H:%M",
-            "%m/%d/%Y %H:%M:%S",
-            "%m/%d/%Y",
-        ):
-            try:
-                return pd.to_datetime(date_str, format=fmt, errors="coerce")
-            except ValueError:
-                continue
-        return pd.NaT  # Return Not-a-Time if no format matched
 
     def market_signals(self, data, sma, ema1, ema2, rsi):
         # Calculate SMA simple moving average
