@@ -28,10 +28,9 @@ jobs:
 
     - name: Run EDA Script
       run: |
-        python stock_market_data_analysis/notebooks/yfinance_analysis.ipynb  
-        python stock_market_data_analysis/notebooks/text_analysis.ipynb  
-        python stock_market_data_analysis/notebooks/time_series_analysis.ipynb  
-        python stock_market_data_analysis/notebooks/publisher_analysis.ipynb  
-
+        jupyter nbconvert --to notebook --execute stock_market_data_analysis/notebooks/yfinance_analysis.ipynb
+        jupyter nbconvert --to notebook --execute stock_market_data_analysis/notebooks/text_analysis.ipynb
+        jupyter nbconvert --to notebook --execute stock_market_data_analysis/notebooks/time_series_analysis.ipynb
+        jupyter nbconvert --to notebook --execute stock_market_data_analysis/notebooks/publisher_analysis.ipynb
 
         
