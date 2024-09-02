@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'  # Adjust to your Python version
+        python-version: '3.10'  
 
     - name: Install dependencies
       run: |
@@ -28,4 +28,10 @@ jobs:
 
     - name: Run EDA Script
       run: |
-        python stock_market_data_analysis/notebooks/EDA_analysis.ipynb  # Adjust to your EDA script path
+        python stock_market_data_analysis/notebooks/yfinance_analysis.ipynb  
+        python stock_market_data_analysis/notebooks/text_analysis.ipynb  
+        python stock_market_data_analysis/notebooks/time_series_analysis.ipynb  
+        python stock_market_data_analysis/notebooks/publisher_analysis.ipynb  
+
+
+        
