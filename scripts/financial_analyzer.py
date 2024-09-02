@@ -4,13 +4,56 @@ import matplotlib.pyplot as plt
 
 
 class FinancialAnalyzer:
-    def __init__(self, ticker):
-        self.ticker = ticker
+    def load_data(self, ticker, isPath=False):
 
-    def load_data(self):
-        df = pd.read_csv(f"datasets\yfinance_data\{self.ticker}_historical_data.csv")
+        df = []
+        if isPath:
+            df = pd.read_csv(ticker)
+            df.rename(columns={"date": "Date", "stock": "Stock"}, inplace=True)
+            # Apply the function to the 'Date' column
+            df["Date"] = df["Date"].apply(self.parse_and_normalize_date)
+
+            # Handle cases where date parsing failed
+            if df["Date"].isna().all():
+                raise ValueError(
+                    "All date parsing failed. Please check the date formats."
+                )
+
+            # Normalize to remove the time component
+            df["Date"] = df["Date"].dt.normalize()
+
+        else:
+            df = pd.read_csv(f"datasets\yfinance_data\{ticker}_historical_data.csv")
+            df["Date"] = pd.to_datetime(df["Date"]).dt.normalize()
+
         df.set_index("Date", inplace=True)
         return df
+
+    def load_datas(self, tickers):
+        all_data = []
+        for ticker in tickers:
+            data = self.load_data(ticker)
+            if data is not None:
+                data["Stock"] = ticker  # Add a 'stock' column with the ticker symbol
+                all_data.append(data)  # Append the DataFrame to the list
+
+        # Concatenate all the DataFrames in the list
+        combined_data = pd.concat(all_data)
+        return combined_data
+
+    def parse_and_normalize_date(self, date_str):
+        # Try different formats
+        for fmt in (
+            "%Y-%m-%d %H:%M:%S%z",
+            "%m/%d/%Y %H:%M",
+            "%m/%d/%Y %H:%M:%S",
+            "%m/%d/%Y",
+        ):
+            try:
+                return pd.to_datetime(date_str, format=fmt, errors="coerce")
+            except ValueError:
+                continue
+        return pd.NaT  # Return Not-a-Time if no format matched
 
     def market_signals(self, data, sma, ema1, ema2, rsi):
         # Calculate SMA simple moving average
