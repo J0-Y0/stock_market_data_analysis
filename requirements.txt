@@ -1,4 +1,5 @@
 asttokens==2.4.1
+click==8.1.7
 colorama==0.4.6
 comm==0.2.2
 contourpy==1.3.0
@@ -11,12 +12,14 @@ fonttools==4.53.1
 ipykernel==6.29.5
 ipython==8.27.0
 jedi==0.19.1
+joblib==1.4.2
 jupyter_client==8.6.2
 jupyter_core==5.7.2
 kiwisolver==1.4.5
 matplotlib==3.9.2
 matplotlib-inline==0.1.7
 nest-asyncio==1.6.0
+nltk==3.9.1
 numpy==2.1.0
 packaging==24.1
 pandas==2.2.2
@@ -32,12 +35,12 @@ python-dateutil==2.9.0.post0
 pytz==2024.1
 pywin32==306
 pyzmq==26.2.0
+regex==2024.7.24
 six==1.16.0
 stack-data==0.6.3
 tornado==6.4.1
+tqdm==4.66.5
 traitlets==5.14.3
 typing_extensions==4.12.2
 tzdata==2024.1
 wcwidth==0.2.13
-nbconvert
-TA-Lib
