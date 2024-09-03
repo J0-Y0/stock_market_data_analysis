@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-nltk.download("vader_lexicon")
+# nltk.download("vader_lexicon")
 
 
 class NewsAnalyzer:
@@ -20,6 +20,8 @@ class NewsAnalyzer:
                 else ("negative" if score["compound"] < -0.05 else "neutral")
             )
         )
+        data["Compound Score"] = data["Sentiment Scores"].apply(lambda x: x["compound"])
+
         return data
 
     def sentiment_plot(self, data):
